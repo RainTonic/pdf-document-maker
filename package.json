@@ -1,0 +1,47 @@
+{
+  "name": "pdf-document-maker",
+  "version": "1.0.0",
+  "description": "Package to handle Document PDF generation",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "yarn.cmd run compile",
+    "pretest": "yarn.cmd run compile",
+    "posttest": "yarn.cmd run lint"
+  },
+  "dependencies": {
+    "date-fns": "^3.2.0",
+    "handlebars": "^4.7.8",
+    "lodash": "^4.17.21",
+    "puppeteer": "^21.7.0",
+    "puppeteer-report": "^3.1.0",
+    "upath": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.202",
+    "@types/node": "^20.4.5",
+    "gts": "^5.0.0",
+    "typescript": "~5.1.6"
+  },
+  "repository": "https://github.com/RainTonic/pdf-document-maker.git",
+  "keywords": [
+    "PDF",
+    "Document",
+    "puppeteer"
+  ],
+  "files": [
+    "!src/",
+    "!node_modules/",
+    "!.idea/"
+  ],
+  "author": "Rain Tonic s.r.l. <info@raintonic.com>",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/RainTonic/pdf-document-maker/issues"
+  },
+  "homepage": "https://github.com/RainTonic/pdf-document-maker#readme"
+}
