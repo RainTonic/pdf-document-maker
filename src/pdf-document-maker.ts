@@ -5,10 +5,10 @@ import puppeteer, { Browser, PDFOptions } from 'puppeteer';
 import { pdfPage } from 'puppeteer-report';
 import { dirname, isAbsolute, normalizeSafe, resolve } from 'upath';
 import { format } from 'date-fns';
-import { DocumentPdfMakerOptions } from './document-pdf-maker-options';
+import { PdfDocumentMakerOptions } from './pdf-document-maker-options';
 
 
-export class DocumentPdfMaker {
+export class PdfDocumentMaker {
   static readonly PAGE_HEIGHT_IN_PIXELS: number = 1142;
 
   private _currentLocale: string = 'en';
@@ -68,7 +68,7 @@ export class DocumentPdfMaker {
    * @param templateData
    * @param options
    */
-  async getHtmlData(filePath: string, templateData: any, options: DocumentPdfMakerOptions = {}): Promise<string> {
+  async getHtmlData(filePath: string, templateData: any, options: PdfDocumentMakerOptions = {}): Promise<string> {
     let templatePath = normalizeSafe(filePath)
     if (!isAbsolute(templatePath)) {
       // Get the dirname of the module that is calling this function
@@ -103,7 +103,7 @@ export class DocumentPdfMaker {
    * @param templateData
    * @param pdfOptions
    */
-  async getPdf(filePath: string, templateData: any, pdfOptions: DocumentPdfMakerOptions = {}): Promise<Uint8Array> {
+  async getPdf(filePath: string, templateData: any, pdfOptions: PdfDocumentMakerOptions = {}): Promise<Uint8Array> {
     const browser: Browser = await puppeteer.launch({ headless: 'new' });
 
     // Calculate html
@@ -131,7 +131,7 @@ export class DocumentPdfMaker {
    * @param pdfOptions
    * @private
    */
-  private async _handlePageFiller(page: any, pdfOptions: DocumentPdfMakerOptions): Promise<void> {
+  private async _handlePageFiller(page: any, pdfOptions: PdfDocumentMakerOptions): Promise<void> {
     const currentPageHeight: number = (await (await page.$('main')).boundingBox()).height;
 
     const currentHeaderHeight: number = (await (await page.$('#header'))?.boundingBox())?.height || 0;
@@ -139,7 +139,7 @@ export class DocumentPdfMaker {
 
     const repeatableHeightElement = pdfOptions.repeatableElementHeight || 20;
 
-    const availableSpaceInPage: number = DocumentPdfMaker.PAGE_HEIGHT_IN_PIXELS -
+    const availableSpaceInPage: number = PdfDocumentMaker.PAGE_HEIGHT_IN_PIXELS -
       (pdfOptions.margin?.top as number || 0) - (pdfOptions.margin?.bottom as number || 0) - currentFooterHeight - currentHeaderHeight;
     const fillerHeight: number =
       currentPageHeight > availableSpaceInPage ?

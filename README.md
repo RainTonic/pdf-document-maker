@@ -40,7 +40,7 @@ Page structure:
 
 Class usage:
 ```typescript
-const pdfMaker = new DocumentPdfMaker();
+const pdfMaker = new PdfDocumentMaker();
 const pdfResult = await pdfMaker.getPdf(filePath, data, options);
 ```
 
