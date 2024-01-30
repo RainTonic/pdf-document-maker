@@ -1,4 +1,4 @@
-import fs from 'fs';
+import * as fs from 'fs';
 import Handlebars from 'handlebars';
 import { merge } from 'lodash';
 import puppeteer, { Browser, PDFOptions } from 'puppeteer';
@@ -103,13 +103,16 @@ export class PdfDocumentMaker {
    * @param templateData
    * @param pdfOptions
    */
-  async getPdf(filePath: string, templateData: any, pdfOptions: PdfDocumentMakerOptions = {}): Promise<Uint8Array> {
-    const browser: Browser = await puppeteer.launch({ headless: 'new' });
+  async getPdf(filePath: string, templateData: any, pdfOptions: PdfDocumentMakerOptions = {}, browserArgs: any = {}): Promise<Uint8Array> {
+    const browser: Browser = await puppeteer.launch({ headless: 'new', ...browserArgs});
 
     // Calculate html
     const html: string = await this.getHtmlData(filePath, templateData, pdfOptions);
 
-    const currentPdfOptions: PDFOptions = merge(this.defaultOptions, pdfOptions);
+    const currentPdfOptions: PDFOptions = {
+      ...this.defaultOptions,
+      ...pdfOptions,
+    };
 
 
     const page: any = await browser.newPage();
