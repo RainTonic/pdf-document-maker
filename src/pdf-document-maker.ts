@@ -46,7 +46,7 @@ export class PdfDocumentMaker {
         maximumFractionDigits: fractionSettings[1] !== undefined ? Number(fractionSettings[1]) : 3,
       });
       const parsedAmount: string | number = amount == undefined || !amount ? 0 : amount;
-      return !parsedAmount ? '' : `${numberFormatter.format(+parsedAmount)}`;
+      return !parsedAmount && parsedAmount !== 0 ? '' : `${numberFormatter.format(+parsedAmount)}`;
     },
     lowercase: (str: string) => str.toLowerCase(),
     uppercase: (str: string) => str.toUpperCase(),
